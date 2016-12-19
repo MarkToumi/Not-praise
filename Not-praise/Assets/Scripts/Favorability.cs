@@ -49,22 +49,25 @@ public class Favorability : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         if (mc.MotionFinsh())
+        {
             FavChangeOn();
-        if (fav == Favorabillity.maxValue && mc.MotionFinsh())
-        {
-            curtains.enabled = true;
-            r = 1f;
-            g = 1f;
-            b = 1f;
-            gameEnd = true;
-        }
-        else if(fav == Favorabillity.minValue && mc.MotionFinsh())
-        {
-            curtains.enabled = true;
-            r = 0f;
-            g = 0f;
-            b = 0f;
-            gameEnd = true;
+            if(fav == Favorabillity.maxValue || fav == Favorabillity.minValue)
+            {
+                curtains.enabled = true;
+                gameEnd = true;
+                if (fav == Favorabillity.maxValue)
+                {
+                    r = 1f;
+                    g = 1f;
+                    b = 1f;
+                }
+                else if(fav == Favorabillity.minValue)
+                {
+                    r = 0f;
+                    g = 0f;
+                    b = 0;
+                }
+            }
         }
         if (gameEnd)
         {
