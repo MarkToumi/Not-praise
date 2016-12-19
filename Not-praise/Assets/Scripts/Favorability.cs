@@ -28,6 +28,7 @@ public class Favorability : MonoBehaviour
     private float diff;
 	// Use this for initialization
 	void Start () {
+        curtains.enabled = false;
         fav = Favorabillity.value;
         diff = fav;
         isON = false;
@@ -51,6 +52,7 @@ public class Favorability : MonoBehaviour
             FavChangeOn();
         if (fav == Favorabillity.maxValue && mc.MotionFinsh())
         {
+            curtains.enabled = true;
             r = 1f;
             g = 1f;
             b = 1f;
@@ -58,6 +60,7 @@ public class Favorability : MonoBehaviour
         }
         else if(fav == Favorabillity.minValue && mc.MotionFinsh())
         {
+            curtains.enabled = true;
             r = 0f;
             g = 0f;
             b = 0f;
