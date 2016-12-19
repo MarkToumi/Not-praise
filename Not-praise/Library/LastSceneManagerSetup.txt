@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/chitose.unity
+- path: Assets/haru.unity
   isLoaded: 1
   isActive: 1
