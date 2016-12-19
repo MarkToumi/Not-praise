@@ -20,13 +20,16 @@ public class Favorability : MonoBehaviour
     private ModelController mc;
     private SceneChanger sc;
     private SoundController sound;
+    private PositionController pc;
     private float r;
     private float g;
     private float b;
     private float a;
+    private float diff;
 	// Use this for initialization
 	void Start () {
         fav = Favorabillity.value;
+        diff = fav;
         isON = false;
         upFlag = false;
         downFlag = false;
@@ -35,6 +38,7 @@ public class Favorability : MonoBehaviour
         mc = live2DModel.GetComponent<ModelController>();
         sc = GetComponent<SceneChanger>();
         sound = GetComponent<SoundController>();
+        pc = GetComponent<PositionController>();
         r = curtains.color.r;
         g = curtains.color.g;
         b = curtains.color.b;
@@ -66,8 +70,11 @@ public class Favorability : MonoBehaviour
                 a = 1f;
             curtains.color = new Color(r, g, b, a);
         }
-        if (a >= 0.5f)
+        if (a >= 0.75f)
+        {
+            pc.moveON();
             sound.CompletedSound();
+        }
 	}
 
     void LateUpdate()
@@ -138,7 +145,11 @@ public class Favorability : MonoBehaviour
                 upFlag = false;
                 downFlag = false;
                 isON = false;
-                mc.ExpressionChange();
+                if (fav > diff)
+                    mc.ExpressionChange(0);
+                else if (fav < diff)
+                    mc.ExpressionChange(1);
+                diff = fav;
             }
         }
     }

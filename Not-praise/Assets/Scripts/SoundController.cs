@@ -8,12 +8,11 @@ public class SoundController : MonoBehaviour {
     public AudioClip[] voice;
     private AudioSource rightAS;
     private AudioSource leftAS;
+    private PositionController pc;
     private bool gameSet;
+   
 	// Use this for initialization
-	void Start () {
-        Vector3 cameraPos = Camera.main.transform.position;
-        Right.transform.position = new Vector3(cameraPos.x + 3, cameraPos.y, cameraPos.z);
-        Left.transform.position = new Vector3(cameraPos.x - 3, cameraPos.y, cameraPos.z);
+	void Start () {        
         rightAS = Right.GetComponent<AudioSource>();
         leftAS = Left.GetComponent<AudioSource>();
         gameSet = true;
@@ -21,7 +20,6 @@ public class SoundController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
     public void CompletedSound()

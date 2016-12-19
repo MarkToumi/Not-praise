@@ -61,6 +61,26 @@ public class ModelController : MonoBehaviour {
             live2DModel.setTexture(i, textures[i]);
         }
 
+        Value idlepath = json.get("motions").get("idle");
+        int idle_num = idlepath.getVector(null).Count;
+        idleFiles = new TextAsset[idle_num];
+        idleSound = new AudioClip[idle_num];
+        idleFadeIn = new int[idle_num];
+        idleFadeOut = new int[idle_num];
+        for (int i = 0; i < idle_num; i++)
+        {
+            idleFiles[i] = (Resources.Load(modelpath + idlepath.get(i).get("file").toString()) as TextAsset);
+            if (idlepath.get(i).getMap(null).ContainsKey("sound"))
+            {
+                string soundnm = Regex.Replace(Regex.Replace(modelpath + idlepath.get(i).get("sound").toString(), ".mp3$", ""), ".wav$", "");
+                idleSound[i] = (Resources.Load(soundnm, typeof(AudioClip)) as AudioClip);
+            }
+            if (idlepath.get(i).getMap(null).ContainsKey("fade_in"))
+                idleFadeIn[i] = idlepath.get(i).get("fade_in").toInt();
+            if (idlepath.get(i).getMap(null).ContainsKey("fade_out"))
+                idleFadeOut[i] = idlepath.get(i).get("fade_out").toInt();
+        }
+
         Value mtnpath = json.get("motions").get("");
         int mtn_num = mtnpath.getVector(null).Count;
         mtnFiles = new TextAsset[mtn_num];
@@ -84,26 +104,6 @@ public class ModelController : MonoBehaviour {
                 mtnFadeOut[i] = mtnpath.get(i).get("fade_out").toInt();
             else
                 mtnFadeOut[i] = 1000;
-        }
-
-        Value idlepath = json.get("motions").get("idle");
-        int idle_num = idlepath.getVector(null).Count;
-        idleFiles = new TextAsset[idle_num];
-        idleSound = new AudioClip[idle_num];
-        idleFadeIn = new int[idle_num];
-        idleFadeOut = new int[idle_num];
-        for (int i = 0; i < idle_num; i++)
-        {
-            idleFiles[i] = (Resources.Load(modelpath + idlepath.get(i).get("file").toString()) as TextAsset);
-            if (idlepath.get(i).getMap(null).ContainsKey("sound"))
-            {
-                string soundnm = Regex.Replace(Regex.Replace(modelpath + idlepath.get(i).get("sound").toString(), ".mp3$", ""), ".wav$", "");
-                idleSound[i] = (Resources.Load(soundnm, typeof(AudioClip)) as AudioClip);
-            }
-            if (idlepath.get(i).getMap(null).ContainsKey("fade_in"))
-                idleFadeIn[i] = idlepath.get(i).get("fade_in").toInt();
-            if (idlepath.get(i).getMap(null).ContainsKey("fade_out"))
-                idleFadeOut[i] = idlepath.get(i).get("fade_out").toInt();
         }
         
         if(json.getMap(null).ContainsKey("pose"))
