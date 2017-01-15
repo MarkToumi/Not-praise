@@ -49,6 +49,9 @@ public class SceneChanger : MonoBehaviour
             case 2:
                 SceneManager.LoadScene("tsumiki");
                 break;
+			case 3:
+				SceneManager.LoadScene ("Title");
+				break;
             default:
                 break;
         }
