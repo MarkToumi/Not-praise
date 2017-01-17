@@ -21,6 +21,14 @@ public class ModelController : MonoBehaviour {
     private AudioClip[] mtnSound;
     private int[] mtnFadeIn;
     private int[] mtnFadeOut;
+    private TextAsset[] favUpFiles;
+    private AudioClip[] favUpSound;
+    private int[] favUpFadeIn;
+    private int[] favUpFadeOut;
+    private TextAsset[] favDownFiles;
+    private AudioClip[] favDownSound;
+    private int[] favDownFadeIn;
+    private int[] favDownFadeOut;
     private TextAsset poseJson;
     private TextAsset physicsJson;
     private AudioSource audio;
@@ -105,7 +113,57 @@ public class ModelController : MonoBehaviour {
             else
                 mtnFadeOut[i] = 1000;
         }
-        
+
+        Value uppath = json.get("motions").get("FavUp");
+        int up_num = uppath.getVector(null).Count;
+        favUpFiles = new TextAsset[up_num];
+        favUpSound = new AudioClip[up_num];
+        favUpFadeIn = new int[up_num];
+        favUpFadeOut = new int[up_num];
+
+        for (int i = 0; i < up_num; i++)
+        {
+            favUpFiles[i] = (Resources.Load(modelpath + uppath.get(i).get("file").toString()) as TextAsset);
+            if (uppath.get(i).getMap(null).ContainsKey("sound"))
+            {
+                string soundnm = Regex.Replace(Regex.Replace(modelpath + uppath.get(i).get("sound").toString(), ".mp3$", ""), ".wav$", "");
+                favUpSound[i] = (Resources.Load(soundnm, typeof(AudioClip)) as AudioClip);
+            }
+            if (uppath.get(i).getMap(null).ContainsKey("fade_in"))
+                favUpFadeIn[i] = uppath.get(i).get("fade_in").toInt();
+            else
+                favUpFadeIn[i] = 1000;
+            if (uppath.get(i).getMap(null).ContainsKey("fade_out"))
+                favUpFadeOut[i] = uppath.get(i).get("fade_out").toInt();
+            else
+                favUpFadeOut[i] = 1000;
+        }
+
+        Value downpath = json.get("motions").get("FavUp");
+        int down_num = downpath.getVector(null).Count;
+        favDownFiles = new TextAsset[down_num];
+        favDownSound = new AudioClip[down_num];
+        favDownFadeIn = new int[down_num];
+        favDownFadeOut = new int[down_num];
+
+        for (int i = 0; i < down_num; i++)
+        {
+            favDownFiles[i] = (Resources.Load(modelpath + downpath.get(i).get("file").toString()) as TextAsset);
+            if (downpath.get(i).getMap(null).ContainsKey("sound"))
+            {
+                string soundnm = Regex.Replace(Regex.Replace(modelpath + downpath.get(i).get("sound").toString(), ".mp3$", ""), ".wav$", "");
+                favDownSound[i] = (Resources.Load(soundnm, typeof(AudioClip)) as AudioClip);
+            }
+            if (downpath.get(i).getMap(null).ContainsKey("fade_in"))
+                favDownFadeIn[i] = downpath.get(i).get("fade_in").toInt();
+            else
+                favUpFadeIn[i] = 1000;
+            if (downpath.get(i).getMap(null).ContainsKey("fade_out"))
+                favDownFadeOut[i] = downpath.get(i).get("fade_out").toInt();
+            else
+                favDownFadeOut[i] = 1000;
+        }
+
         if(json.getMap(null).ContainsKey("pose"))
         {
             Value posepath = json.get("pose");
@@ -168,15 +226,31 @@ public class ModelController : MonoBehaviour {
 
     void motionSet(int n)
     {
-        int rn = UnityEngine.Random.Range(0, mtnFiles.Length);
-        motion = Live2DMotion.loadMotion(mtnFiles[rn].bytes);
-        motion.setFadeIn(mtnFadeIn[rn]);
-        motion.setFadeOut(mtnFadeOut[rn]);
-        motionManager.startMotion(motion, false);
-        if (mtnSound[rn] != null)
+        if(n == 0)
         {
-            audio.clip = mtnSound[rn];
-            audio.Play();
+            int rn = UnityEngine.Random.Range(0,favUpFiles.Length);
+            motion = Live2DMotion.loadMotion(favUpFiles[rn].bytes);
+            motion.setFadeIn(favUpFadeIn[rn]);
+            motion.setFadeOut(favUpFadeOut[rn]);
+            motionManager.startMotion(motion, false);
+            if(favUpSound[rn] != null)
+            {
+                audio.clip = favUpSound[rn];
+                audio.Play();
+            }
+        }
+        else if(n == 1)
+        {
+            int rn = UnityEngine.Random.Range(0, favDownFiles.Length);
+            motion = Live2DMotion.loadMotion(favDownFiles[rn].bytes);
+            motion.setFadeIn(favDownFadeIn[rn]);
+            motion.setFadeOut(favDownFadeOut[rn]);
+            motionManager.startMotion(motion, false);
+            if(favDownSound[rn] != null)
+            {
+                audio.clip = favDownSound[rn];
+                audio.Play();
+            }
         }
     }
 

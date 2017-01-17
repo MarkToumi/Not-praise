@@ -1,19 +1,23 @@
 {
-	"version":"Sample 1.0.0",
-	"model":"chitose.moc",
-	"textures":[
-		"chitose.2048/texture_00.png"
-	],
-	"motions":{
-		"":[
-			{"file":"motions/chitose_handwave.mtn"},
-			{"file":"motions/chitose_kime01.mtn"},
-			{"file":"motions/chitose_kime02.mtn"}
-		],
-		"idle":[
-			{"file":"motions/chitose_idle.mtn","fade_in":2000,"fade_out":2000}
-		]
-	},
+    "version": "Sample 1.0.0",
+    "model": "chitose.moc",
+    "textures": [
+        "chitose.2048/texture_00.png"
+    ],
+    "motions": {
+        "": [
+            { "file": "motions/chitose_kime02.mtn" }
+        ],
+        "idle": [
+            { "file": "motions/chitose_idle.mtn", "fade_in": 2000, "fade_out": 2000 }
+        ],
+        "FavUp": [
+            { "file": "motions/chitose_handwave.mtn" }
+        ],
+        "FavDown": [
+            { "file": "motions/chitose_kime01.mtn" }
+        ]
+    },
     "parts_param":{
 		"vigilance":[
 			{"parts":"PARAM_BROW_L_X","param":-0.76},
