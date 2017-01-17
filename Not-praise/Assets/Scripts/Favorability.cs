@@ -154,7 +154,9 @@ public class Favorability : MonoBehaviour
                 if (fav > diff)
                     mc.motionSet(0);
                 else if (fav < diff)
-                    mc.motionSet(1);            }
+                    mc.motionSet(1);
+                diff = fav;
+            }
         }
     }
 

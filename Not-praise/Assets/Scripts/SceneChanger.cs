@@ -12,7 +12,6 @@ public class SceneChanger : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
     public void SceneMove(int n = 0)
