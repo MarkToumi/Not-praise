@@ -152,11 +152,9 @@ public class Favorability : MonoBehaviour
                 downFlag = false;
                 isON = false;
                 if (fav > diff)
-                    mc.ExpressionChange(0);
+                    mc.motionSet(0);
                 else if (fav < diff)
-                    mc.ExpressionChange(1);
-                diff = fav;
-            }
+                    mc.motionSet(1);            }
         }
     }
 

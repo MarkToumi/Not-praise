@@ -139,7 +139,7 @@ public class ModelController : MonoBehaviour {
                 favUpFadeOut[i] = 1000;
         }
 
-        Value downpath = json.get("motions").get("FavUp");
+        Value downpath = json.get("motions").get("FavDown");
         int down_num = downpath.getVector(null).Count;
         favDownFiles = new TextAsset[down_num];
         favDownSound = new AudioClip[down_num];
@@ -224,7 +224,7 @@ public class ModelController : MonoBehaviour {
         }
     }
 
-    void motionSet(int n)
+    public void motionSet(int n)
     {
         if(n == 0)
         {
@@ -252,12 +252,6 @@ public class ModelController : MonoBehaviour {
                 audio.Play();
             }
         }
-    }
-
-    public void ExpressionChange(int n = 0)
-    {
-
-        motionSet(n);
     }
 
     public void MotionPlay()
