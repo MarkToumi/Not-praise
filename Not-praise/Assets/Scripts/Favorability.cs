@@ -11,6 +11,8 @@ public class Favorability : MonoBehaviour
     public GameObject live2DModel;
     public Image curtains;
     public float fadeSpeed;
+    public GameObject UpEffect;
+    public GameObject DownEffect;
     private float fav;
     private int favInt;
     private bool isON;
@@ -140,8 +142,10 @@ public class Favorability : MonoBehaviour
     {
         if(isON)
         {
-            if (upFlag)
+            
+            if (upFlag){
                 FavUp();
+            }
             else if (downFlag)
                 FavDown();
             Favorabillity.value = fav;
@@ -155,6 +159,8 @@ public class Favorability : MonoBehaviour
                     mc.motionSet(0);
                 else if (fav < diff)
                     mc.motionSet(1);
+                else if(fav == diff)
+                    mc.motionSet(2);
                 diff = fav;
             }
         }
@@ -165,6 +171,12 @@ public class Favorability : MonoBehaviour
         fav += 1;
         if (fav >= Favorabillity.maxValue)
             fav = Favorabillity.maxValue;
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 5;
+        Vector3 effectPos = Camera.main.ScreenToWorldPoint(mousePos);
+        if(UpEffect != null){
+            Instantiate(UpEffect,effectPos,Quaternion.Euler(Vector3.zero));
+        }
     }
 
     void FavDown()
@@ -172,6 +184,12 @@ public class Favorability : MonoBehaviour
         fav -= 1;
         if (fav <= Favorabillity.minValue)
             fav = Favorabillity.minValue;
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 5;
+        Vector3 effectPos = Camera.main.ScreenToWorldPoint(mousePos);
+        if(DownEffect != null){
+            Instantiate(DownEffect,effectPos,Quaternion.Euler(Vector3.zero));
+        }
     }
 
     public void FavChangeOff(BaseEventData eve)

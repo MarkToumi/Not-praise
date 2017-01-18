@@ -252,6 +252,19 @@ public class ModelController : MonoBehaviour {
                 audio.Play();
             }
         }
+        else if(n == 2)
+        {
+            int rn = UnityEngine.Random.Range(0,mtnFiles.Length);
+            motion = Live2DMotion.loadMotion(mtnFiles[rn].bytes);
+            motion.setFadeIn(mtnFadeIn[rn]);
+            motion.setFadeOut(mtnFadeOut[rn]);
+            motionManager.startMotion(motion,false);
+            if(mtnSound[rn] != null)
+            {
+                audio.clip = mtnSound[rn];
+                audio.Play();
+            }
+        }
     }
 
     public void MotionPlay()
