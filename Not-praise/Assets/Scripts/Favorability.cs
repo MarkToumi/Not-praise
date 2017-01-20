@@ -171,12 +171,7 @@ public class Favorability : MonoBehaviour
         fav += 1;
         if (fav >= Favorabillity.maxValue)
             fav = Favorabillity.maxValue;
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 5;
-        Vector3 effectPos = Camera.main.ScreenToWorldPoint(mousePos);
-        if(UpEffect != null){
-            Instantiate(UpEffect,effectPos,Quaternion.Euler(Vector3.zero));
-        }
+        effectOn();
     }
 
     void FavDown()
@@ -184,12 +179,7 @@ public class Favorability : MonoBehaviour
         fav -= 1;
         if (fav <= Favorabillity.minValue)
             fav = Favorabillity.minValue;
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 5;
-        Vector3 effectPos = Camera.main.ScreenToWorldPoint(mousePos);
-        if(DownEffect != null){
-            Instantiate(DownEffect,effectPos,Quaternion.Euler(Vector3.zero));
-        }
+        effectOn();
     }
 
     public void FavChangeOff(BaseEventData eve)
@@ -202,6 +192,17 @@ public class Favorability : MonoBehaviour
     public void motionSet(BaseEventData eve)
     {
         mc.MotionPlay();
+    }
+
+    void effectOn()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 5;
+        Vector3 effectPos = Camera.main.ScreenToWorldPoint(mousePos);
+        if(upFlag && UpEffect != null)
+            Instantiate(UpEffect,effectPos,Quaternion.Euler(Vector3.zero));
+        else if(downFlag && DownEffect != null)
+            Instantiate(DownEffect,effectPos,Quaternion.Euler(Vector3.zero));
     }
 
     void GameCompleted()
