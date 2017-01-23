@@ -7,11 +7,11 @@ public class AutoEffectsDestroy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		particle = GetComponent<ParticleSystem>();
+		Destroy(gameObject,particle.duration);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(particle.isPlaying == false) Destroy(gameObject);
 	}
 
 	public bool particlePlaying()
