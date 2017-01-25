@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using live2d;
-
 public class Favorability : MonoBehaviour
 {
 
